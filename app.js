@@ -4,12 +4,16 @@
 
 //Create our playlist instance
 var playlist = new Playlist();
-var hereComesTheSun = new song("Here comes the Sun", "The Beatles", "2:54");
-var walkingOnSunshine = new song("walking on Sunshine", "Katrina and the Waves", "3:43");
+
+var hereComesTheSun = new Song("Here comes the Sun", "The Beatles", "2:54");
+var walkingOnSunshine = new Song("walking on Sunshine", "Katrina and the Waves", "3:43");
 
 //Add the songs to the playlist
 playlist.add(hereComesTheSun);
 playlist.add(walkingOnSunshine);
+
+var playlistElement = document.getElementById("playlist");
+playlist.renderInElement(playlistElement);
 
 //Add title, artist, duration to the song constructor
 // set them as properties for the song that we are creating
@@ -22,8 +26,6 @@ function Song(title, artist, duration ) {
     this.isPlaying = false;
 }
 
-
-
 Song.prototype.play = function() {
     this.isPlaying = true;
 
@@ -35,6 +37,18 @@ Song.prototype.stop = function() {
 };
 
 Song.prototype.toHTML = function() {
+    var htmlString = '<li'
+    if(this.isPlaying){
+         htmlString += ' class="current"';
+    }
+    htmlString += '>';
+    htmlString += this.title;
+    htmlString += ' - ';
+    htmlString += this.artist;
+    htmlString += '<span class="duration">'
+    htmlString += this.duration;
+    htmlString += '</span></li>';
+    return htmlString;
 
 };
 
@@ -59,7 +73,6 @@ Playlist.prototype.play = function() {
 Playlist.prototype.stop = function(){
     var currentSong = this.songs[this.nowPlayingIndex];
     currentSong.stop();
-
 };
 
 Playlist.prototype.next = function() {
@@ -75,7 +88,12 @@ Playlist.prototype.next = function() {
 
 //method to display the song on the page
 
-Playlist.prototype.renderInElement = function() {
+Playlist.prototype.renderInElement = function(list) {
+    list.innerHTML = " ";
+    //If the  i is less than the songs length
+    for (var i = 0; i < this.songs.length; i++){
+        list.innerHTML += this.songs[i].toHTML();
+    }
 
 };
 
