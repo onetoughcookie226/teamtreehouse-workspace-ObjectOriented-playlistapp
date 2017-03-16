@@ -38,21 +38,14 @@ playButton.onclick = function () {
 //Set the boolean value as false
 
 function Song(title, artist, duration ) {
-    this.title = title;
+    // var song = this;
+    Media.call(this, title, duration);
     this.artist = artist;
-    this.duration = duration;
-    this.isPlaying = false;
 }
 
-Song.prototype.play = function() {
-    this.isPlaying = true;
+Song.prototype = Object.create(Media.prototype);
 
-};
 
-Song.prototype.stop = function() {
-    this.isPlaying = false;
-
-};
 
 Song.prototype.toHTML = function() {
     var htmlString = '<li'
