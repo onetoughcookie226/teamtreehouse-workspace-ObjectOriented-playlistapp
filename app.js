@@ -15,6 +15,24 @@ playlist.add(walkingOnSunshine);
 var playlistElement = document.getElementById("playlist");
 playlist.renderInElement(playlistElement);
 
+var playButton = document.getElementById("play");
+playButton.onclick = function () {
+    playlist.play();
+    playlist.renderInElement(playlistElement);
+}
+var nextButton = document.getElementById("next");
+playButton.onclick = function () {
+    playlist.next();
+    playlist.renderInElement(playlistElement);
+}
+
+
+var stopButton = document.getElementById("stop")
+playButton.onclick = function () {
+    playlist.stop();
+    playlist.renderInElement(playlistElement);
+}
+
 //Add title, artist, duration to the song constructor
 // set them as properties for the song that we are creating
 //Set the boolean value as false
